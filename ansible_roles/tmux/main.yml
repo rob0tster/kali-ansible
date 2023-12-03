@@ -1,0 +1,10 @@
+- name: Install Oh My Tmux
+  shell: git clone https://github.com/gpakosz/.tmux.git /home/{{user}}/.tmux
+
+- name: Make Symbolic Link
+  shell: ln -s -f  /home/{{user}}/.tmux/.tmux.conf /home/{{user}}/.tmux.conf
+
+- name: Copy Over .tmux.conf.local File
+  copy:
+    src: .tmux.conf.local
+    dest: /home/{{user}}/.tmux.conf.local

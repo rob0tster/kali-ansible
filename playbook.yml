@@ -1,0 +1,12 @@
+---
+- name: "Configure Kali"
+  hosts: localhost
+  vars:
+    user: botster
+    burpsuite_user: botster
+
+  roles:
+    - ansible_roles/packages
+    - ansible_roles/terminal
+    - ansible_roles/tmux
+    - ansible_roles/transfers

@@ -1,0 +1,40 @@
+- name: Install Oh-My-Zsh
+  shell: /usr/bin/sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+- name: Copy Over .zshrc File
+  copy:
+    src: .zshrc
+    dest: /home/{{user}}/.zshrc
+
+- name: Copy Over .p10k.zsh File
+  copy:
+    src: .p10k.zsh
+    dest: /home/{{user}}/.p10k.zsh
+
+- name: Install Powerlevel10k
+  shell: 'git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/{{user}}/.oh-my-zsh/custom/themes/powerlevel10k' 
+
+- name: Copy Over Konsolerc File
+  copy:
+    src: konsolerc
+    dest: /home/{{user}}/.config/konsolerc
+
+- name: Install dark.profile Konsole Profile
+  become: true
+  copy:
+    src: dark.profile
+    dest: /usr/share/konsole/dark.profile
+
+- name: Install Fonts
+  become: true
+  copy: 
+    src: fonts/
+    dest: /usr/local/share/fonts 
+
+- name: Regenerate Font Cache
+  become: true
+  shell: fc-cache -f -v
+
+- name: Make Hush Login File
+  shell: touch /home/{{user}}/.hushlogin
+

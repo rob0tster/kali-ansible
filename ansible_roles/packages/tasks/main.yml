@@ -1,0 +1,37 @@
+- name: Install apt packages
+  become: yes
+  apt:
+    name:
+      - kali-linux-large
+      - git
+      - flameshot
+      - tmux
+      - curl
+      - vim
+      - wget
+      - xclip
+      - net-tools
+      - apache2
+      - autokey-gtk
+      - fonts-powerline
+    state: present
+    update_cache: yes
+
+- name: Make home directories
+  file:
+    path: /home/{{user}}/{{item}}
+    state: directory
+  loop:
+    - 'Documents'
+    - 'Downloads'
+    - 'Pictures'
+
+- name: Download Obsidian
+  shell: 'curl -s https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest | grep -v arm | grep "browser_download_url.*AppImage" | cut -d : -f 2,3 | tr -d \" | wget -qi - -O /home/{{user}}/Downloads/obsidian'
+
+- name: Prepare Obsidian
+  shell: "chmod +x /home/{{user}}/Downloads/obsidian"
+
+- name: Move Obisidian 
+  become: yes
+  shell: "mv /home/{{user}}/Downloads/obsidian /usr/local/bin/obsidian"

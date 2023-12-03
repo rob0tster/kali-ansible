@@ -1,0 +1,5 @@
+.vscode
+ansible_roles/transfers
+ansible_roles/terminal/files/.zshrc
+ansible_roles/tmux/files/.tmux.conf.local
+ansible_roles/transfers/files/
